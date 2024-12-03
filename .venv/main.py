@@ -12,8 +12,14 @@ def create_report(template_path,data,chart_data=None):
     for paragraph in doc.paragraphs:
         for key, value in data.items():
             if f'{{{{{key}}}}}' in paragraph.text:
-                st.write(f"Reemplazando {key} con {value} en el informe.")
+                st.write("Reemplazando ",key," con ", value ,"en el informe.")
             paragraph.text = paragraph.text.replace(f'{{{{{key}}}}}',str(value)) 
+    
+    output =io.BytesIO()
+    doc.save(output)
+    output.seek(0)
+    st.write("reporte creado con exito.")
+    return output
         
     
         
@@ -36,8 +42,9 @@ def main():
         
     if st.button("Generar Informe"):
         output = create_report(template_file,selected_data)
-        st.download_button("descargar informe", output ,"informe_generado.docx",
-                          "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        st.download_button("descargar informe",output,"nforme_generado.docx",
+                           "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+       
 
     
 
