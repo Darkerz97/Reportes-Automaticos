@@ -18,8 +18,9 @@ def create_report(template_path,data,chart_data=None):
     output =io.BytesIO()
     doc.save(output)
     output.seek(0)
-    st.write("reporte creado con exito.")
+    st.write("Reporte creado con exito.")
     return output
+
         
     
         
